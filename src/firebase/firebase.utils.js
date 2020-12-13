@@ -1,8 +1,9 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import { FIREBASE_CONFIG } from "../utils/keys.constant";
 
-const config = {};
+const config = FIREBASE_CONFIG;
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
