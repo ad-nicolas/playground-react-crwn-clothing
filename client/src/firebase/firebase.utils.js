@@ -1,18 +1,9 @@
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import { FIREBASE_CONFIG } from "../utils/keys.constant";
 
-const config = {
-  apiKey: "AIzaSyCdHT-AYHXjF7wOrfAchX4PIm3cSj5tn14",
-  authDomain: "crwn-db.firebaseapp.com",
-  databaseURL: "https://crwn-db.firebaseio.com",
-  projectId: "crwn-db",
-  storageBucket: "crwn-db.appspot.com",
-  messagingSenderId: "850995411664",
-  appId: "1:850995411664:web:7ddc01d597846f65",
-};
-
-firebase.initializeApp(config);
+const config = FIREBASE_CONFIG;
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -24,6 +15,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
+
     try {
       await userRef.set({
         displayName,
@@ -39,24 +31,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserCartRef = async (userId) => {
-  const cartsRef = firestore.collection("carts").where("userId", "==", userId);
-  const snapShot = await cartsRef.get();
-
-  if (snapShot.empty) {
-    const cartDocRef = firestore.collection("carts").doc();
-    await cartDocRef.set({ userId, cartItems: [] });
-    return cartDocRef;
-  } else {
-    return snapShot.docs[0].ref;
-  }
-};
+firebase.initializeApp(config);
 
 export const addCollectionAndDocuments = async (
   collectionKey,
   objectsToAdd
 ) => {
   const collectionRef = firestore.collection(collectionKey);
+  console.log("collectionRef", collectionRef);
 
   const batch = firestore.batch();
   objectsToAdd.forEach((obj) => {
@@ -78,7 +60,6 @@ export const convertCollectionsSnapshotToMap = (collections) => {
       items,
     };
   });
-
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;

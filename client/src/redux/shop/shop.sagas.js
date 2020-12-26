@@ -1,4 +1,4 @@
-import { takeLatest, call, put, all } from "redux-saga/effects";
+import { takeLatest, call, all, put } from "redux-saga/effects";
 
 import {
   firestore,

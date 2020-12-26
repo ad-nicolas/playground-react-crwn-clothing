@@ -1,23 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
+import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { createStructuredSelector } from "reselect";
 
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { signOutStart } from "../../redux/user/user.actions";
-
-import { ReactComponent as Logo } from "../../assets/crown.svg";
 
 import {
   HeaderContainer,
   LogoContainer,
   OptionsContainer,
   OptionLink,
-} from "./header.styles";
+} from "./header.styles.jsx";
+import { signOutStart } from "../../redux/user/user.actions";
 
-export const Header = ({ currentUser, hidden, signOutStart }) => (
+const Header = ({ currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
     <LogoContainer to="/">
       <Logo className="logo" />
@@ -25,6 +24,7 @@ export const Header = ({ currentUser, hidden, signOutStart }) => (
     <OptionsContainer>
       <OptionLink to="/shop">SHOP</OptionLink>
       <OptionLink to="/shop">CONTACT</OptionLink>
+      {console.log("currentUser", currentUser)}
       {currentUser ? (
         <OptionLink as="div" onClick={signOutStart}>
           SIGN OUT
