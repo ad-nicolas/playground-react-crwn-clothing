@@ -2,25 +2,22 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { addItem } from "../../redux/cart/cart.actions";
+
 import {
-  AddButton,
-  BackgroundImageContainer,
-  CollectionFooterContainer,
   CollectionItemContainer,
+  CollectionFooterContainer,
+  AddButton,
+  BackgroundImage,
   NameContainer,
   PriceContainer,
 } from "./collection-item.styles";
 
-const CollectionItem = ({ item, addItem }) => {
+export const CollectionItem = ({ item, addItem }) => {
   const { name, price, imageUrl } = item;
 
   return (
     <CollectionItemContainer>
-      <BackgroundImageContainer
-        style={{
-          backgroundImage: `url(${imageUrl})`,
-        }}
-      />
+      <BackgroundImage className="image" imageUrl={imageUrl} />
       <CollectionFooterContainer>
         <NameContainer>{name}</NameContainer>
         <PriceContainer>{price}</PriceContainer>
