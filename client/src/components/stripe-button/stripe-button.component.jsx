@@ -7,7 +7,7 @@ import { STRIPE_PUBLISHABLE_KEY } from "../../utils/keys.constant";
 const StripeCheckoutButton = ({ price }) => {
     const priceForStripe = price * 100;
     const publishableKey = STRIPE_PUBLISHABLE_KEY;
-
+ 
     const onToken = token => {
         axios({
             url: 'payment',
